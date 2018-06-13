@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package inventario;
+package inventario2;
 
 /**
  *
  * @author estudiante
  */
-public class Inventario {
+public class Inventario2 {
 
     /**
      * @param args the command line arguments
