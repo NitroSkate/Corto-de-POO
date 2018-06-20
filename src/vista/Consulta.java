@@ -141,6 +141,7 @@ public class Consulta extends JFrame {
     
     public void llenarTabla(){
         tm= new DefaultTableModel(){
+            @Override
             public Class<?> getColumnClass(int column){
                 switch(column){
                     case 0:
