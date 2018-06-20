@@ -12,6 +12,8 @@ package modelo;
 public class Filtro {
     private int id;
     private String codigo;
+    private String director;
+    private String pais;
     private String marca;
     private int stock;
     private boolean existencia;
@@ -20,29 +22,43 @@ public class Filtro {
         
     }
     
-    public Filtro(int id, String codigo, String marca, int stock, boolean existencia){
+    public Filtro(int id, String codigo, String director, String pais, String marca, int stock, boolean existencia){
         this.id=id;
+        this.director=director;
+        this.pais=pais;
         this.marca=marca;
         this.stock=stock;
         this.existencia=existencia;
         this.codigo=codigo;
     }
     
-    public Filtro(String codigo, String marca, int stock, boolean existencia){
+    public Filtro(String codigo, String director, String pais, String marca, int stock, boolean existencia){
         this.codigo=codigo;
+        this.director=director;
+        this.pais=pais;
         this.marca=marca;
         this.stock=stock;
         this.existencia=existencia;
     }
     
-    public Filtro(String marca, int stock, boolean existencia){
+    public Filtro(String director, String pais, String marca, int stock, boolean existencia){
+        this.director=director;
+        this.pais=pais;
         this.marca=marca;
         this.stock=stock;
         this.existencia=existencia;
     }
     
-        public String getCodigo() {
+    public String getCodigo() {
     return this.codigo;
+    }
+    
+    public String getDirector() {
+        return this.director;
+    }
+    
+    public String getPais(){
+        return this.pais;
     }
 
     public String getMarca() {

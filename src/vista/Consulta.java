@@ -29,9 +29,9 @@ import modelo.Filtro;
  * @author estudiante
  */
 public class Consulta extends JFrame {
-    public JLabel lblCodigo, lblMarca, lblStock, lblExistencia;
+    public JLabel lblCodigo,lblDirector,lblPais, lblMarca, lblStock, lblExistencia;
     
-    public JTextField codigo, descripcion, stock;
+    public JTextField codigo, director, pais, descripcion, stock;
     public JComboBox marca;
     
     ButtonGroup existencia = new ButtonGroup();
@@ -48,7 +48,7 @@ public class Consulta extends JFrame {
     DefaultTableModel tm;
     
     public Consulta(){
-        super("Inventario");
+        super("Cinepolix");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         agregarLabels();
@@ -56,10 +56,14 @@ public class Consulta extends JFrame {
         llenarTabla();
         Container container = getContentPane();
         container.add(lblCodigo);
+        container.add(lblDirector);
+        container.add(lblPais);
         container.add(lblMarca);
         container.add(lblStock);
         container.add(lblExistencia);
         container.add(codigo);
+        container.add(director);
+        container.add(pais);
         container.add(marca);
         container.add(stock);
         container.add(si);
@@ -75,11 +79,15 @@ public class Consulta extends JFrame {
     }
     
     public final void agregarLabels(){
-        lblCodigo= new JLabel("Codigo");
-        lblMarca= new JLabel("Marca");
-        lblStock= new JLabel("Stock");
-        lblExistencia= new JLabel("Stock en tienda");
+        lblCodigo= new JLabel("Nombre");
+        lblDirector= new JLabel("Director");
+        lblPais=new JLabel("Pais");
+        lblMarca= new JLabel("Proyección");
+        lblStock= new JLabel("Año");
+        lblExistencia= new JLabel("En proyeccion");
         lblCodigo.setBounds(10, 10, ANCHOC, ALTOC);
+        lblDirector.setBounds(300 , 10, ANCHOC, ALTOC);
+        lblPais.setBounds(300, 60,ANCHOC, ALTOC);
         lblMarca.setBounds(10, 60, ANCHOC, ALTOC);
         lblStock.setBounds(10, 100, ANCHOC, ALTOC);
         lblExistencia.setBounds(10, 140, ANCHOC, ALTOC);
@@ -87,6 +95,8 @@ public class Consulta extends JFrame {
     
     public final void formulario(){
         codigo= new JTextField();
+        director= new JTextField();
+        pais=new JTextField();
         marca= new JComboBox();
         stock= new JTextField();
         si= new JRadioButton("si", true);
@@ -100,22 +110,26 @@ public class Consulta extends JFrame {
         
         table= new JPanel();
         
-        marca.addItem("FRAM");
-        marca.addItem("WIX");
-        marca.addItem("Luber Finer");
-        marca.addItem("OSK");
+        marca.addItem("G");
+        marca.addItem("PG-13");
+        marca.addItem("14A");
+        marca.addItem("18A");
+        marca.addItem("R");
+        marca.addItem("A");
         
         existencia= new ButtonGroup();
         existencia.add(si);
         existencia.add(no);
         
         codigo.setBounds(140, 10, ANCHOC, ALTOC);
+        director.setBounds(430, 10, ANCHOC, ALTOC);
+        pais.setBounds(430,60,ANCHOC, ALTOC);
         marca.setBounds(140, 60, ANCHOC, ALTOC);
         stock.setBounds(140, 100, ANCHOC, ALTOC);
         si.setBounds(140, 140, 50, ALTOC);
         no.setBounds(210, 140, 50, ALTOC);
         
-        buscar.setBounds(300, 10, ANCHOC, ALTOC);
+        buscar.setBounds(300, 110, ANCHOC, ALTOC);
         insertar.setBounds(10, 210, ANCHOC, ALTOC);
         actualizar.setBounds(150, 210, ANCHOC, ALTOC);
         eliminar.setBounds(300, 210, ANCHOC, ALTOC);
@@ -135,21 +149,27 @@ public class Consulta extends JFrame {
                         return String.class;
                     case 2:
                         return String.class;
+                    case 3:
+                        return String.class;
+                    case 4:
+                        return String.class;
                     default:
                         return Boolean.class;
                 }
             }
         };
-        tm.addColumn("Codigo");
-        tm.addColumn("Marca");
-        tm.addColumn("Stock");
-        tm.addColumn("Stock en Sucursal");
+        tm.addColumn("Nombre");
+        tm.addColumn("Director");
+        tm.addColumn("Pais");
+        tm.addColumn("Clasificacion");
+        tm.addColumn("Año");
+        tm.addColumn("En proyección");
         
         FiltroDao fd = new FiltroDao();
         ArrayList<Filtro> filtros = fd.readAll();
         
         for (Filtro fi: filtros){
-            tm.addRow(new Object[]{fi.getCodigo(), fi.getMarca(), fi.getStock(), fi.getExistencia()});
+            tm.addRow(new Object[]{fi.getCodigo(), fi.getDirector(), fi.getPais(), fi.getMarca(), fi.getStock(), fi.getExistencia()});
         }
         
         resultados.setModel(tm);
@@ -160,7 +180,7 @@ public class Consulta extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 FiltroDao fd = new FiltroDao();
-                Filtro f = new Filtro(codigo.getText(), marca.getSelectedItem().toString(),
+                Filtro f = new Filtro(codigo.getText(), director.getText(), pais.getText(), marca.getSelectedItem().toString(),
                 Integer.parseInt(stock.getText()),true);
                 
                 if(no.isSelected()){
@@ -169,11 +189,11 @@ public class Consulta extends JFrame {
                 }
                 
                 if(fd.create(f)){
-                    JOptionPane.showMessageDialog(null, "Filtro registrado con exito");
+                    JOptionPane.showMessageDialog(null, "Pelicula registrado con exito");
                     limpiarCampos();
                     llenarTabla();
                 } else{
-                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de crear el filtro");
+                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de crear la pelicula");
                     
                 }
              
@@ -184,7 +204,7 @@ public class Consulta extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 FiltroDao fd = new FiltroDao();
-                Filtro f = new Filtro(codigo.getText(), marca.getSelectedItem().toString(),
+                Filtro f = new Filtro(codigo.getText(), director.getText(), pais.getText(), marca.getSelectedItem().toString(),
                 Integer.parseInt(stock.getText()), true);
                 
                 if (no.isSelected()){
@@ -192,11 +212,11 @@ public class Consulta extends JFrame {
                 }
                 
                 if(fd.update(f)){
-                    JOptionPane.showMessageDialog(null, "Filtro Modificado con exito");
+                    JOptionPane.showMessageDialog(null, "Pelicula Modificada con exito");
                     limpiarCampos();
                     llenarTabla();
                 }else{
-                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de modificar el filtro");
+                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de modificar la pelicula");
                 }
             }
         });
@@ -206,11 +226,11 @@ public class Consulta extends JFrame {
             public void actionPerformed(ActionEvent e){
                 FiltroDao fd = new FiltroDao();
                 if (fd.delete(codigo.getText())){
-                JOptionPane.showMessageDialog(null, "Filtro Eliminado con exito");
+                JOptionPane.showMessageDialog(null, "Pelicula Eliminada con exito");
                 limpiarCampos();
                 llenarTabla();
             }else{
-                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de eliminar el filtro");
+                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de eliminar la pelicula");
                 }
             }
         });
@@ -221,7 +241,7 @@ public class Consulta extends JFrame {
                FiltroDao fd = new FiltroDao();
                Filtro f = fd.read(codigo.getText());
                if (f == null){
-                   JOptionPane.showMessageDialog(null, "El filtro buscado no se ha encontrado"); 
+                   JOptionPane.showMessageDialog(null, "La pelicula buscada no se ha encontrado"); 
                } else{
                    codigo.setText(f.getCodigo());
                    marca.setSelectedItem(f.getMarca());
@@ -247,7 +267,9 @@ public class Consulta extends JFrame {
     
     public void limpiarCampos(){
         codigo.setText("");
-        marca.setSelectedItem("FRAM");
+        director.setText("");
+        pais.setText("");
+        marca.setSelectedItem("G");
         stock.setText("");
     }
     
