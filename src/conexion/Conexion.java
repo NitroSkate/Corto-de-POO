@@ -5,12 +5,9 @@
  */
 package conexion;
 
-import com.sun.istack.internal.logging.Logger;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import sun.util.logging.PlatformLogger;
-import sun.util.logging.PlatformLogger.Level;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *

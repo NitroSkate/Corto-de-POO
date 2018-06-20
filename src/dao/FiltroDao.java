@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Filtro;
-import sun.util.logging.PlatformLogger;
 /**
  *
  * @author estudiante
@@ -24,7 +23,7 @@ public class FiltroDao implements metodos<Filtro> {
     
     private static final String SQL_INSERT = "INSERT INTO filtros_aceite (codFiltro,marca,stock,existencia) VALUES (?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE filtros_aceite SET marca = ?,stock = ?,existencia= ? WHERE codFiltro=?";
-    private static final String SQL_DELELTE = "DELETE FROM filtros_aceite WHERE codFiltro=?";
+    private static final String SQL_DELETE = "DELETE FROM filtros_aceite WHERE codFiltro=?";
     private static final String SQL_READ = "SELECT * FROM filtros_aceite WHERE codFiltro=?";
     private static final String SQL_READALL = "SELECT * FROM filtros_aceite";
     private static final Conexion con=Conexion.conectar();
@@ -35,7 +34,7 @@ public class FiltroDao implements metodos<Filtro> {
         try{
             ps=con.getCnx().prepareStatement(SQL_INSERT);
             ps.setString(1, g.getCodigo());
-            ps.setString(2, getMarca());
+            ps.setString(2, g.getMarca());
             ps.setInt(3,g.getStock());
             ps.setBoolean(4, true);
             if (ps.executeUpdate() > 0){
@@ -43,7 +42,7 @@ public class FiltroDao implements metodos<Filtro> {
             }
         }catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            Logger.getLogger(FiltroDao.class.getName().log(Level.SEVERE, null, ex));
+            Logger.getLogger(FiltroDao.class.getName()).log(Level.SEVERE,null,ex);
         } finally {
             con.cerrarConexion();
         }
@@ -63,7 +62,7 @@ public class FiltroDao implements metodos<Filtro> {
             }
         }catch (SQLException ex){
             System.out.println(ex.getMessage());
-            Logger.getLogger(FiltroDao.class.getName().log(Level.SEVERE, null, ex));
+            Logger.getLogger(FiltroDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             con.cerrarConexion();
         }
