@@ -5,7 +5,7 @@
  */
 package vista;
 
-import dao.FiltroDao;
+import dao.PeliculaDao;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import modelo.Filtro;
+import modelo.Pelicula;
 
 /**
  *
@@ -166,10 +166,10 @@ public class Consulta extends JFrame {
         tm.addColumn("Año");
         tm.addColumn("En proyección");
         
-        FiltroDao fd = new FiltroDao();
-        ArrayList<Filtro> filtros = fd.readAll();
+        PeliculaDao fd = new PeliculaDao();
+        ArrayList<Pelicula> filtros = fd.readAll();
         
-        for (Filtro fi: filtros){
+        for (Pelicula fi: filtros){
             tm.addRow(new Object[]{fi.getCodigo(), fi.getDirector(), fi.getPais(), fi.getMarca(), fi.getStock(), fi.getExistencia()});
         }
         
@@ -180,8 +180,8 @@ public class Consulta extends JFrame {
         insertar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                FiltroDao fd = new FiltroDao();
-                Filtro f = new Filtro(codigo.getText(), director.getText(), pais.getText(), marca.getSelectedItem().toString(),
+                PeliculaDao fd = new PeliculaDao();
+                Pelicula f = new Pelicula(codigo.getText(), director.getText(), pais.getText(), marca.getSelectedItem().toString(),
                 Integer.parseInt(stock.getText()),true);
                 
                 if(no.isSelected()){
@@ -204,8 +204,8 @@ public class Consulta extends JFrame {
         actualizar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                FiltroDao fd = new FiltroDao();
-                Filtro f = new Filtro(codigo.getText(), director.getText(), pais.getText(), marca.getSelectedItem().toString(),
+                PeliculaDao fd = new PeliculaDao();
+                Pelicula f = new Pelicula(codigo.getText(), director.getText(), pais.getText(), marca.getSelectedItem().toString(),
                 Integer.parseInt(stock.getText()), true);
                 
                 if (no.isSelected()){
@@ -225,7 +225,7 @@ public class Consulta extends JFrame {
         eliminar.addActionListener(new ActionListener() {
             @Override 
             public void actionPerformed(ActionEvent e){
-                FiltroDao fd = new FiltroDao();
+                PeliculaDao fd = new PeliculaDao();
                 if (fd.delete(codigo.getText())){
                 JOptionPane.showMessageDialog(null, "Pelicula Eliminada con exito");
                 limpiarCampos();
@@ -239,8 +239,8 @@ public class Consulta extends JFrame {
         buscar.addActionListener(new ActionListener(){
            @Override
            public void actionPerformed(ActionEvent e){
-               FiltroDao fd = new FiltroDao();
-               Filtro f = fd.read(codigo.getText());
+               PeliculaDao fd = new PeliculaDao();
+               Pelicula f = fd.read(codigo.getText());
                if (f == null){
                    JOptionPane.showMessageDialog(null, "La pelicula buscada no se ha encontrado"); 
                } else{

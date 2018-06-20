@@ -9,7 +9,7 @@ package modelo;
  *
  * @author estudiante
  */
-public class Filtro {
+public class Pelicula {
     private int id;
     private String codigo;
     private String director;
@@ -18,11 +18,11 @@ public class Filtro {
     private int stock;
     private boolean existencia;
     
-    public Filtro(){
+    public Pelicula(){
         
     }
     
-    public Filtro(int id, String codigo, String director, String pais, String marca, int stock, boolean existencia){
+    public Pelicula(int id, String codigo, String director, String pais, String marca, int stock, boolean existencia){
         this.id=id;
         this.director=director;
         this.pais=pais;
@@ -32,7 +32,7 @@ public class Filtro {
         this.codigo=codigo;
     }
     
-    public Filtro(String codigo, String director, String pais, String marca, int stock, boolean existencia){
+    public Pelicula(String codigo, String director, String pais, String marca, int stock, boolean existencia){
         this.codigo=codigo;
         this.director=director;
         this.pais=pais;
@@ -41,7 +41,7 @@ public class Filtro {
         this.existencia=existencia;
     }
     
-    public Filtro(String director, String pais, String marca, int stock, boolean existencia){
+    public Pelicula(String director, String pais, String marca, int stock, boolean existencia){
         this.director=director;
         this.pais=pais;
         this.marca=marca;
